@@ -1,0 +1,30 @@
+#!/usr/bin/python3
+
+import sys
+import sync_from_repo
+import sync_envs
+import help
+
+COMMANDS = {
+    "repo": sync_from_repo.SyncFromRepo,
+    "env": sync_envs.SyncFromEnvironment,
+    "help": help.HelpCommand
+}
+
+
+def Run():
+    if len(sys.argv) < 2:
+        print("Specify command: %s (%s)" % (sys.argv[0], "|".join(COMMANDS)))
+        exit(1)
+
+    command = sys.argv[1].strip().lower()
+    if sys.argv[1] not in COMMANDS:
+        print("Unknown command '%s', shoud be one of : %s" %
+              (command, ", ".join(COMMANDS)))
+        exit(1)
+    else:
+        COMMANDS[command](sys.argv[2:])
+
+
+if __name__ == '__main__':
+    Run()
