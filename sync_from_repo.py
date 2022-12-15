@@ -53,6 +53,10 @@ def SyncFromRepo(argsList):
     dest_has_tags = bool(config.ENVS[dest_env]['withTags'])
 
     for service in dest_data:
+
+        if service in ignore:
+            continue
+
         dest_version = (str(dest_data[service]['version']
                             if dest_has_tags else dest_data[service])) if service in dest_data else None
 
