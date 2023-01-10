@@ -7,7 +7,7 @@ ENVS = {
     "preprod": {
         "folder": "zoov-preprod",
         "file": "versions.json",
-        "withTags": False,
+        "withTags": True,
     },
     "staging": {
         "folder": "zoov-staging",

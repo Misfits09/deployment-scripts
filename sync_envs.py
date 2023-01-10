@@ -52,10 +52,11 @@ def SyncFromEnvironment(argsList):
     source_data = json.loads(source_file.read())
     dest_data = json.loads(dest_file.read())
 
-    source_has_tags = bool(config.ENVS[source_env]['withTags'])
-    dest_has_tags = bool(config.ENVS[dest_env]['withTags'])
-
     for service in source_data:
+
+        source_has_tags = isinstance(source_data[service], dict)
+        dest_has_tags = isinstance(
+            dest_data[service], dict) if service in dest_data else bool(config.ENVS[dest_env]['withTags'])
 
         source_version = str(source_data[service]['version']
                              if source_has_tags else source_data[service])
@@ -71,7 +72,7 @@ def SyncFromEnvironment(argsList):
 
         if dest_has_tags:
             tag = source_version if source_version.startswith(
-                'pr-') else dest_env
+                'pr-') else 'staging'
             dest_data[service] = {"version": source_version, "tag": tag}
 
             if source_has_tags and "app" in source_data[service]:

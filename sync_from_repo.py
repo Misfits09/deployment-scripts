@@ -71,7 +71,7 @@ def SyncFromRepo(argsList):
             app = dest_data[service]["app"] if "app" in dest_data[service] else None
             dest_data[service] = {
                 "version": repo_version,
-                "tag": repo_version if repo_version.startswith('pr-') else "staging",
+                "tag": repo_version if repo_version.startswith('pr-') else 'staging',
             }
             if app != None:
                 dest_data[service]["app"] = app
